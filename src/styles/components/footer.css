@@ -1,0 +1,75 @@
+/* Mobile-first: single centered column. Tablet+ switches to a 3-column
+   grid with left-aligned text (responsive.css). */
+.footer {
+  padding-block: var(--space-8) var(--space-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer__logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-logo);
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+}
+
+.footer__tagline {
+  max-width: 303px;
+  font-weight: 700;
+  line-height: 32px;
+  margin-top: var(--space-3);
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.footer__links-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.footer__links-heading {
+  font-weight: 700;
+  font-size: var(--fs-footer-heading);
+  color: var(--color-accent);
+}
+
+.footer__links-column ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.footer__links-column a {
+  font-weight: 500;
+  line-height: 32px;
+  transition: color 0.25s var(--ease-standard);
+}
+
+.footer__links-column a:hover,
+.footer__links-column a:focus-visible {
+  color: var(--color-accent);
+}
+
+.footer__copyright {
+  opacity: 0.5;
+  font-weight: 500;
+}

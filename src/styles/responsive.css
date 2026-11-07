@@ -1,0 +1,270 @@
+/*
+  Mobile (<640px) is the unprefixed default across every component file.
+  This file layers the Tablet / Laptop / Monitor overrides on top,
+  mobile-first (min-width), per CLAUDE.md's exact breakpoint table.
+*/
+
+/* Side indicators are mobile+tablet hidden; laptop+ restores them */
+.social,
+.scroll-slider {
+  display: none;
+}
+
+/* ============ Tablet: 640px - 1023px ============ */
+@media (min-width: 640px) {
+  .content-section__text {
+    max-width: 100%;
+  }
+
+  /* Larger, still-centered hero title for the roomier tablet canvas */
+  .hero__heading {
+    max-width: 620px;
+    font-size: clamp(2.75rem, 6.5vw, 3.75rem);
+  }
+
+  /* Footer: 3-column grid (intro / Blog links / MNTN links) in one row,
+     left-aligned text. .footer__links is unwrapped via display:contents so
+     its two columns become direct grid items alongside .footer__intro —
+     same technique as the header's nav bar. Copyright spans the full width
+     as its own row at the bottom, scaled typography to fit this narrower
+     tablet width (laptop+ scales back up below). */
+  .footer {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    align-items: start;
+    text-align: left;
+    gap: var(--space-3);
+  }
+
+  .footer__intro {
+    grid-column: 1;
+    align-items: flex-start;
+  }
+
+  .footer__links {
+    display: contents;
+  }
+
+  .footer__links-column {
+    align-items: flex-start;
+  }
+
+  .footer__links-column ul {
+    align-items: flex-start;
+  }
+
+  .footer__links-column--blog {
+    grid-column: 2;
+  }
+
+  .footer__links-column--mntn {
+    grid-column: 3;
+  }
+
+  .footer__copyright {
+    grid-column: 1 / -1;
+    text-align: left;
+    margin-top: var(--space-4);
+  }
+
+  .footer__links-heading {
+    font-size: 18px;
+  }
+
+  .footer__tagline,
+  .footer__links-column a {
+    font-size: 16px;
+  }
+}
+
+/* ============ Laptop: 1024px - 1439px ============ */
+@media (min-width: 1024px) {
+  .container {
+    max-width: var(--container-max-laptop);
+  }
+
+  /* Full inline nav bar; hamburger + mobile/tablet overlay retired */
+  .header__hamburger {
+    display: none;
+  }
+
+  .nav-overlay {
+    display: none;
+  }
+
+  /* Three-zone header: logo start, nav links true-centered, account end.
+     .header__nav is unwrapped via display:contents so its children
+     (nav-list, account) become direct grid items alongside the logo. */
+  .header__inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .header__logo {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .header__nav {
+    display: contents;
+  }
+
+  .header__nav-list {
+    grid-column: 2;
+    justify-self: center;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .header__account {
+    grid-column: 3;
+    justify-self: end;
+  }
+
+  /* Hero reverts to the original left-aligned desktop layout — the
+     centered treatment above is mobile/tablet only. */
+  .hero__content {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero__heading {
+    max-width: 780px;
+    font-size: clamp(2.5rem, 5vw, var(--fs-hero-heading));
+  }
+
+  /* Side indicators return, compressed: tighter offset, slider numerals only */
+  .social,
+  .scroll-slider {
+    display: flex;
+  }
+
+  .social {
+    left: var(--space-3);
+  }
+
+  .scroll-slider {
+    right: var(--space-3);
+  }
+
+  /* Two-column content sections */
+  .content-section {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-6);
+    padding-block: var(--space-9);
+  }
+
+  /* Section 02's mirrored layout (image left / text right, numeral on the
+     right) only makes sense once there are two side-by-side columns —
+     mobile/tablet keep every section identically ordered (content-section.css). */
+  .content-section--reverse .content-section__numeral {
+    left: auto;
+    right: 0;
+  }
+
+  .content-section--reverse .content-section__body-wrap {
+    order: 2;
+  }
+
+  .content-section--reverse .content-section__media {
+    order: 1;
+  }
+
+  /* Section 01 overlaps the hero's faded-out bottom edge so its numeral/
+     eyebrow appear to emerge from the photo rather than starting on a flat
+     color — content-section already has no background of its own, so the
+     hero shows through. -120px is the largest single spatial-grid token
+     (--space-9); a deeper -180/-200px overlap would read a bit more
+     dramatic but isn't one of CLAUDE.md's 9 allowed margin values. */
+  #section-01 {
+    position: relative;
+    z-index: 2;
+    margin-top: calc(-1 * var(--space-9));
+  }
+
+  /* Asymmetrical split — image column dominant over text column */
+  .content-section__body-wrap {
+    flex: 1 1 42%;
+    min-width: 0;
+  }
+
+  .content-section__media {
+    flex: 1 1 58%;
+    min-width: 0;
+  }
+
+  .content-section__media img {
+    aspect-ratio: 4 / 5;
+  }
+
+  /* The 268px-wide text column at this breakpoint is too narrow for the
+     numeral's normal fluid size (up to 240px) and the eyebrow's full 6px
+     letter-spacing without "GET STARTED" wrapping into the numeral. */
+  .content-section__numeral {
+    font-size: 140px;
+  }
+
+  .content-section .eyebrow__text {
+    letter-spacing: 3px;
+  }
+
+  /* Fixed (not vw-scaled) size: the text column's width is governed by the
+     768px-capped container, not the viewport, so a vw-based clamp kept
+     growing the font past what the column could hold as the viewport
+     widened within this breakpoint. 34px (not 36px) because the longest
+     heading ("Picking the right Hiking Gear!") needs the extra margin to
+     land on 2 lines rather than 3 at this column width — checked all three
+     section headings, not just one. */
+  .content-section__heading {
+    max-width: 500px;
+    font-size: 2.125rem;
+    line-height: 1.2;
+  }
+
+  /* Same 3-column grid as tablet, just roomier: wider gap and typography
+     back to full size now there's more horizontal room. */
+  .footer {
+    gap: var(--space-5);
+  }
+
+  .footer__links-heading {
+    font-size: var(--fs-footer-heading);
+  }
+
+  .footer__tagline,
+  .footer__links-column a {
+    font-size: var(--fs-body);
+  }
+
+  .footer__copyright {
+    margin-top: var(--space-6);
+  }
+}
+
+/* ============ Monitor: >=1440px ============ */
+@media (min-width: 1440px) {
+  .container {
+    max-width: var(--container-max-monitor);
+  }
+
+  .content-section {
+    gap: var(--space-9);
+  }
+
+  /* Wider container/gap here than at laptop, so the fixed laptop size
+     collapses to 1 line — scale back up while keeping the 500px cap that
+     forces the 2-line wrap. */
+  .content-section__heading {
+    font-size: 3rem;
+  }
+
+  .social {
+    left: var(--space-4);
+  }
+
+  .scroll-slider {
+    right: var(--space-4);
+  }
+}

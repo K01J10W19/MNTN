@@ -1,0 +1,96 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.hero__layers {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Weighted toward center rather than hard-anchored to the bottom, so the
+     wide sky/distant-mountain part of the composite isn't cropped away on
+     short/wide viewports. */
+  object-position: center 30%;
+  will-change: transform;
+}
+
+/* Single soft vertical scrim: dark enough at the very top for header
+   legibility, fully clear through the middle so the sky/mountains read
+   clearly, then a long, gradual fade at the bottom that lands on the exact
+   solid page background color (not just a dark tint) — so there's no visible
+   seam where the hero ends and the overlapping content section begins. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(11, 29, 38, 0.65) 0%,
+    rgba(11, 29, 38, 0) 40%,
+    rgba(11, 29, 38, 0.7) 75%,
+    var(--color-bg) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* max-width/padding/centering come from the shared .container class on this
+   element (see index.html) — it must track the same laptop/monitor insets
+   as the rest of the page so it clears the fixed social/slider sidebars.
+   Mobile/tablet default to a centered editorial layout; laptop+ reverts to
+   the original left-aligned desktop layout (responsive.css). */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+}
+
+.hero__title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.hero__heading {
+  max-width: 480px;
+  font-size: clamp(2.5rem, 5vw, var(--fs-hero-heading));
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+/* Mobile only: stretch .hero__content to (nearly) the full hero height and
+   split it top/bottom via flex distribution, so the title group settles in
+   the upper-middle and "scroll down" reads as a clear, separate cue pinned
+   near the bottom — without resorting to position:absolute (which would
+   need .hero__content to give up the position:relative it uses for
+   z-index, breaking its stacking above the background layers/gradient). */
+@media (max-width: 639px) {
+  .hero__content {
+    min-height: calc(100vh - var(--space-8));
+    justify-content: space-between;
+    padding-block: var(--space-8) var(--space-7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__layer {
+    will-change: auto;
+  }
+}

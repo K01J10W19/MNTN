@@ -1,0 +1,46 @@
+:root {
+  /* Color */
+  --color-bg: #0b1d26;
+  --color-accent: #fbd784;
+  --color-white: #ffffff;
+  --color-bg-transparent: rgba(11, 29, 38, 0);
+  --color-text-muted: rgba(255, 255, 255, 0.8);
+
+  /* Typography — free substitutes for the source design's licensed fonts
+     (Chronicle Display -> Playfair Display, Gilroy -> Poppins). Swap these
+     two lines if licensed font files are added later. */
+  --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'Consolas', monospace;
+
+  /* Font sizes (not governed by the spatial grid rule) */
+  --fs-hero-heading: 64px;
+  --fs-section-heading: 64px;
+  --fs-numeral: 240px;
+  --fs-footer-heading: 24px;
+  --fs-logo: 32px;
+  --fs-body: 18px;
+  --fs-eyebrow: 18px;
+
+  /* Spacing scale — the mandatory spatial grid. Every margin, padding, gap,
+     and structural height must use one of these. No off-grid values. */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 80px;
+  --space-8: 96px;
+  --space-9: 120px;
+
+  /* Shadow */
+  --shadow-soft: 0 0 100px rgba(0, 0, 0, 0.2);
+
+  /* Layout */
+  --container-max-monitor: 1280px;
+  --container-max-laptop: 768px;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -1,0 +1,65 @@
+.scroll-slider {
+  position: fixed;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.scroll-slider__labels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-4);
+}
+
+.scroll-slider__label {
+  font-weight: 700;
+  font-size: var(--fs-body);
+  color: var(--color-white);
+  opacity: 0.5;
+  transition:
+    opacity 0.25s var(--ease-standard),
+    color 0.25s var(--ease-standard);
+}
+
+.scroll-slider__label[data-active='true'] {
+  opacity: 1;
+}
+
+.scroll-slider__label:hover,
+.scroll-slider__label:focus-visible {
+  color: var(--color-accent);
+}
+
+/* Track/indicator thickness and length are decorative micro-dimensions,
+   exempt from the spatial grid rule (which governs layout spacing, not
+   decorative element geometry — see plan's grid-reconciliation notes). */
+.scroll-slider__track {
+  position: relative;
+  width: 3px;
+  /* 5 stops (Start/01/02/03/End) x 60px indicator height each */
+  height: 300px;
+  background: var(--color-white);
+  opacity: 0.5;
+}
+
+.scroll-slider__indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 60px;
+  background: var(--color-white);
+  transform: translateY(calc(var(--active-index, 0) * 60px));
+  transition: transform 0.3s var(--ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-slider__indicator {
+    transition: none;
+  }
+}

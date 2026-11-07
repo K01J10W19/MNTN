@@ -1,0 +1,196 @@
+/* Editorial mobile/tablet nav overlay (<1024px). Fully separate from the
+   desktop inline .header__nav bar — see header.css / responsive.css. Hidden
+   entirely at laptop+ regardless of state (responsive.css). */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(11, 29, 38, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.98);
+  transition:
+    opacity 0.35s var(--ease-standard),
+    transform 0.35s var(--ease-standard),
+    visibility 0s linear 0.35s;
+}
+
+body[data-nav-open='true'] .nav-overlay {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition:
+    opacity 0.35s var(--ease-standard),
+    transform 0.35s var(--ease-standard),
+    visibility 0s linear 0s;
+}
+
+/* Low-opacity topographic contour pattern, purely atmospheric */
+.nav-overlay__pattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.nav-overlay__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+
+.nav-overlay__logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-logo);
+  letter-spacing: 0.32px;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
+
+.nav-overlay__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+/* Outer nav centers the link block as a whole unit in the viewport... */
+.nav-overlay__links {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ...while this inner list left-aligns its rows to each other, so the
+   numeral column ("01", "02", ...) lines up neatly instead of drifting
+   left/right per row the way independently-centered rows would. */
+.nav-overlay__links-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.nav-overlay__link {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  padding-block: var(--space-1);
+}
+
+.nav-overlay__link-index {
+  font-family: var(--font-heading);
+  font-size: var(--fs-body);
+  color: var(--color-accent);
+}
+
+.nav-overlay__link-index::after {
+  content: '—';
+  margin-inline: var(--space-2);
+  opacity: 0.6;
+}
+
+.nav-overlay__link-text {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-body);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-white);
+  transition: color 0.25s var(--ease-standard);
+}
+
+/* Sliding underline on hover/focus */
+.nav-overlay__link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transition: width 0.3s var(--ease-standard);
+}
+
+.nav-overlay__link:hover .nav-overlay__link-text,
+.nav-overlay__link:focus-visible .nav-overlay__link-text {
+  color: var(--color-accent);
+}
+
+.nav-overlay__link:hover::before,
+.nav-overlay__link:focus-visible::before {
+  width: 100%;
+}
+
+.nav-overlay__meta {
+  position: absolute;
+  left: var(--space-5);
+  right: var(--space-5);
+  bottom: var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.nav-overlay__social {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.nav-overlay__social-label {
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-white);
+  opacity: 0.7;
+}
+
+/* Decorative "expedition metadata" flourish — dropped on small mobile to
+   avoid clutter; the social links stay. */
+.nav-overlay__coords {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--color-white);
+  opacity: 0.4;
+}
+
+@media (max-width: 639px) {
+  .nav-overlay__coords {
+    display: none;
+  }
+
+  /* Only the social block remains at this width — center it (matching the
+     link list above) instead of space-between, which would otherwise pin
+     it to the left now that it's the only child. */
+  .nav-overlay__meta {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-overlay {
+    transition:
+      opacity 0.01ms linear,
+      visibility 0.01ms linear;
+  }
+}

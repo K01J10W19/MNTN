@@ -1,0 +1,56 @@
+.content-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-block: var(--space-8);
+  overflow: hidden;
+}
+
+.content-section__numeral {
+  position: absolute;
+  top: var(--space-4);
+  left: 0;
+  z-index: 0;
+}
+
+/* .content-section--reverse's mirroring (numeral side + order swap) is
+   laptop+ only (responsive.css) — mobile/tablet stack every section the
+   same way (numeral left, text above image) regardless of --reverse,
+   since "left image / right text" has no meaning in a single column. */
+
+.content-section__body-wrap {
+  position: relative;
+  z-index: 1;
+  order: 1;
+}
+
+.content-section__media {
+  position: relative;
+  z-index: 1;
+  order: 2;
+}
+
+.content-section__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.content-section__heading {
+  font-size: clamp(32px, 5vw, var(--fs-section-heading));
+}
+
+.content-section__text {
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--color-text-muted);
+  max-width: 460px;
+}
+
+.content-section__media img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
